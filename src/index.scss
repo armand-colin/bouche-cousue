@@ -121,6 +121,11 @@ body {
     flex-direction: column;
     margin-bottom: 20px;
   }
+  .message {
+    color: red;
+    text-align: center;
+    padding: 0 10px;
+  }
   p {
     text-align: center;
     span.bold {

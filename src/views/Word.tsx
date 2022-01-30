@@ -17,7 +17,27 @@ interface State {
     current: string;
     invalid: string[];
     win: boolean | null;
+    message: string | null;
 }
+
+const missingMessages = [
+    "Frère il manque des lettres là",
+    "Encore quelques lettres",
+    "Pas assez de caractères boloss",
+    "Tu sais pas compter ?",
+]
+
+const wordDoesntExistMessages = [
+    "Ce mot n'existe pas",
+    "T'es allé à l'école ?",
+    "Regarde dans le dico, ça s'écrit pas comme ça",
+    "Te fous pas de moi, ça veut rien dire ça",
+    "Peut-être une faute de frappe ?",
+]
+
+function choice(array: string[]): string {
+    return array[Math.trunc(array.length * Math.random())]
+} 
 
 const MAX_TRY = 5
 
@@ -33,7 +53,8 @@ export default class Word extends Component<Props, State> {
             tries: new Array(MAX_TRY).fill(null),
             current: '',
             invalid: [],
-            win: null
+            win: null,
+            message: null
         }
 
         this.invalid = new Set();
@@ -52,12 +73,18 @@ export default class Word extends Component<Props, State> {
         const current = this.state.current;
         const word = this.props.word;
 
-        if (current.length !== word.length)
+        if (current.length !== word.length) {
+            this.setState({ message: choice(missingMessages) })
             return;
+        }
 
-        if (!wordSet.has(current))
+        if (!wordSet.has(current)) {
+            this.setState({ message: choice(wordDoesntExistMessages) })
             return;
-            
+        }
+
+        this.setState({ message: null })
+
         const _try: ITry = {
             letters: current,
             match: Array(word.length).fill('incorrect')
@@ -105,6 +132,8 @@ export default class Word extends Component<Props, State> {
     }
 
     private backspace() {
+        this.setState({ message: null })
+
         let current = this.state.current;
         if (current.length === 0)
             return;
@@ -113,6 +142,8 @@ export default class Word extends Component<Props, State> {
     }
 
     private input(key: string) {
+        this.setState({ message: null })
+
         let current = this.state.current;
         if (current.length >= this.props.word.length)
             return;
@@ -137,6 +168,9 @@ export default class Word extends Component<Props, State> {
             }
             <div className="current">
                 {this.state.current}
+            </div>
+            <div className="message">
+                {this.state.message}
             </div>
             <Keyboard
                 onBackspace={this.backspace.bind(this)}
