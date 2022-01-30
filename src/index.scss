@@ -1,0 +1,130 @@
+@font-face {
+  font-family: "regular-font";
+  src: url("./fonts/SpaceMono-Regular.ttf");
+}
+
+@font-face {
+  font-family: "bold-font";
+  src: url("./fonts/SpaceMono-Bold.ttf");
+}
+
+* {
+  font-family: "regular-font";
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "bold-font";
+}
+
+.Main {
+  h1, h2 {
+    text-align: center;
+    margin: 0
+  }
+  button {
+    width: 100%;
+    border: none;    
+    border-radius: 5px;
+    padding: 10px;
+    background: cornflowerblue;
+    color: white;
+    box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.Keyboard {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  .row {
+    display: flex;
+    &:nth-child(n + 2) {
+      margin-top: 5px;
+    }
+    .key {
+      &:nth-child(n+2) {
+        margin-left: 5px;
+      }
+      width: 100%;
+      height: 2em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.4);
+      &.backspace {
+        width: 200%;
+      }
+      &.invalid {
+        color: lightgrey;
+      }
+    }
+  }
+  button {
+    margin-top: 5px;
+    border: none;    
+    border-radius: 5px;
+    padding: 10px;
+    background: cornflowerblue;
+    color: white;
+    box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.Word {
+  .current {
+    display: flex;
+    width: 100%;
+    height: 2em;
+    justify-content: center;
+    align-items: center;  
+  }
+  .tries {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  p {
+    text-align: center;
+    span.bold {
+      font-family: "bold-font";
+    }
+  }
+}
+
+.Try {
+  display: flex;
+  &:nth-child(n + 2) {
+    margin-top: 5px;
+  }
+  .letter {
+    width: 2em;
+    height: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.4);
+    &:nth-child(n + 2) {
+      margin-left: 5px;
+    }
+    &.correct {
+      background: cornflowerblue;
+    }
+    &.incorrect {
+      background: red;
+    }
+    &.place {
+      background: orange;
+    }
+  }
+}
