@@ -51,24 +51,26 @@ const Keyboard = (props: Props) => {
     }
 
     return <div className="Keyboard">
-        {
-            layout.map((row, i) => (
-                <div className="row" key={i}>
-                    {
-                        row.map((key, i) => (
-                            <div 
-                                className={`key ${key} ${props.invalid.indexOf(key) > -1 ? 'invalid' : ''}`} 
-                                key={i} 
-                                onClick={() => onKeyClick(key)}
-                            >
-                                {key === "backspace" ? "<" : key}
-                            </div>
-                        ))
-                    }
-                </div>
-            ))
-        }
-        <button onClick={props.onEnter}>Valider</button>
+        <div className="content">
+            {
+                layout.map((row, i) => (
+                    <div className="row" key={i}>
+                        {
+                            row.map((key, i) => (
+                                <div
+                                    className={`key ${key} ${props.invalid.indexOf(key) > -1 ? 'invalid' : ''}`}
+                                    key={i}
+                                    onClick={() => onKeyClick(key)}
+                                >
+                                    {key === "backspace" ? "<" : key}
+                                </div>
+                            ))
+                        }
+                    </div>
+                ))
+            }
+            <button onClick={props.onEnter}>Valider</button>
+        </div>
     </div>
 }
 

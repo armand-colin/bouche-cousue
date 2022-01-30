@@ -32,9 +32,11 @@ export default class Main extends Component<Props, State> {
 
     render() {
         return <div className="Main">
-            <h2>(Motus et)</h2>
-            <h1>Bouche-cousue</h1>
-            <button onClick={this.generate.bind(this)}>Nouveau mot</button>
+            <div className="padding">
+                <h2>(Motus et)</h2>
+                <h1>Bouche-cousue</h1>
+                <button className="generate-word" onClick={this.generate.bind(this)}>Nouveau mot</button>
+            </div>
             {
                 this.state.word ?
                     <Word key={this.state.word} word={this.state.word} onFinish={this.finish.bind(this)} /> :
