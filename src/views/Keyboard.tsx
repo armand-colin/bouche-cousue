@@ -47,9 +47,6 @@ const Keyboard = (props: Props) => {
         if (key === "backspace")
             return props.onBackspace()
 
-        if (props.invalid.indexOf(key) > -1)
-            return;
-
         props.onInput(key)
     }
 

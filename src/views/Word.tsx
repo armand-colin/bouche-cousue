@@ -1,6 +1,11 @@
 import { Component } from "react";
 import Keyboard from "./Keyboard";
 import Try, { ITry } from "./Try";
+import words from './list-words.json'
+
+const wordSet = new Set()
+for (const word in words)
+    wordSet.add(word)
 
 interface Props {
     word: string;
@@ -50,6 +55,9 @@ export default class Word extends Component<Props, State> {
         if (current.length !== word.length)
             return;
 
+        if (!wordSet.has(current))
+            return;
+            
         const _try: ITry = {
             letters: current,
             match: Array(word.length).fill('incorrect')
