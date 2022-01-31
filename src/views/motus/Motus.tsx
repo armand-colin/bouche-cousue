@@ -1,6 +1,8 @@
 import { Component } from "react";
 import words from './list-words.json'
 import Word from "./Word";
+import './style.scss';
+import ViewHeader from "../ViewHeader";
 
 interface Props {
 
@@ -10,7 +12,7 @@ interface State {
     word: string | null
 }
 
-export default class Main extends Component<Props, State> {
+export default class Motus extends Component<Props, State> {
 
     constructor(props: Props) {
         super(props)
@@ -31,10 +33,9 @@ export default class Main extends Component<Props, State> {
     }
 
     render() {
-        return <div className="Main">
+        return <div className="Motus">
+            <ViewHeader title="Motus" />
             <div className="padding">
-                <h2>(Motus et)</h2>
-                <h1>Bouche-cousue</h1>
                 <button className="generate-word" onClick={this.generate.bind(this)}>Nouveau mot</button>
             </div>
             {

@@ -1,0 +1,26 @@
+.Home {
+    .links {
+        padding: 10px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    h1 {
+        text-align: center;
+        margin: 5px 0;
+    }
+}
+
+.LinkButton {
+    height: 3em;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    a {
+        color: white;
+        text-decoration: none;
+    }
+}
