@@ -14,10 +14,11 @@ interface Props {
 
 interface State {
     tries: (ITry | null)[]
-    current: string;
     invalid: string[];
     win: boolean | null;
     message: string | null;
+    pos: number;
+    current: string;
 }
 
 const missingMessages = [
@@ -37,7 +38,7 @@ const wordDoesntExistMessages = [
 
 function choice(array: string[]): string {
     return array[Math.trunc(array.length * Math.random())]
-} 
+}
 
 const MAX_TRY = 5
 
@@ -50,11 +51,12 @@ export default class Word extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            tries: new Array(MAX_TRY).fill(null),
-            current: '',
+            tries: Array(MAX_TRY).fill(null),
+            current: ' '.repeat(props.word.length),
+            pos: 0,
             invalid: [],
             win: null,
-            message: null
+            message: null,
         }
 
         this.invalid = new Set();
@@ -73,7 +75,7 @@ export default class Word extends Component<Props, State> {
         const current = this.state.current;
         const word = this.props.word;
 
-        if (current.length !== word.length) {
+        if (current.includes(' ')) {
             this.setState({ message: choice(missingMessages) })
             return;
         }
@@ -124,38 +126,68 @@ export default class Word extends Component<Props, State> {
         tries[this.try] = _try
         this.try++
 
-        if (this.try === MAX_TRY)
+        if (current === word)
+            this.setState({ win: true })
+        else if (this.try === MAX_TRY)
             this.setState({ win: false })
 
-        console.log([...this.invalid.values()])
-        this.setState({ tries, current: '', invalid: [...this.invalid.values()] })
+        this.setState({
+            tries,
+            current: ' '.repeat(word.length),
+            invalid: [...this.invalid.values()],
+            pos: 0
+        })
     }
 
     private backspace() {
         this.setState({ message: null })
 
         let current = this.state.current;
-        if (current.length === 0)
-            return;
-        current = current.slice(undefined, current.length - 1)
-        this.setState({ current })
+        let pos = this.state.pos
+        if (current[pos] !== " ")
+            current = current.slice(undefined, pos) + ' ' + current.slice(pos + 1)
+        pos = Math.max(pos - 1, 0)
+        this.setState({
+            current,
+            pos
+        })
     }
 
     private input(key: string) {
         this.setState({ message: null })
 
         let current = this.state.current;
-        if (current.length >= this.props.word.length)
-            return;
-        current += key;
-        this.setState({ current })
+        let pos = this.state.pos
+
+        current = current.slice(undefined, pos) + key + current.slice(pos + 1)
+        pos = Math.min(pos + 1, current.length - 1)
+        this.setState({
+            current,
+            pos
+        })
+    }
+
+    private select(row: number, i: number) {
+        if (row !== this.try)
+            return
+        this.setState({
+            pos: i
+        })
     }
 
     render() {
+        const tries = [...this.state.tries]
+        tries[this.try] = {
+            letters: this.state.current,
+            match: Array(this.state.current.length)
+                .fill('empty')
+                .map((x, i) => i === this.state.pos ? 'current' : x)
+        }
+
         return <div className="Word">
             <div className="tries">
                 {
-                    this.state.tries.map((_try, i) => <Try key={i} try={_try} length={this.props.word.length} />)
+                    tries.map((_try, i) => <Try key={i} try={_try} length={this.props.word.length} onClick={k => this.select(i, k)} />)
                 }
             </div>
 
@@ -166,9 +198,6 @@ export default class Word extends Component<Props, State> {
                         <p>Dommage, le mot était <span className="bold">{this.props.word}</span></p> :
                     undefined
             }
-            <div className="current">
-                {this.state.current}
-            </div>
             <div className="message">
                 {this.state.message}
             </div>

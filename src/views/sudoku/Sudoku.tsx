@@ -2,7 +2,6 @@ import { Component } from "react";
 import Grid from "./Grid";
 import Keyboard from "./Keyboard";
 import './style.scss';
-import grids from "./list-grids.json"
 import ViewHeader from "../ViewHeader";
 import { generateSudoku } from "./generateSudoku";
 

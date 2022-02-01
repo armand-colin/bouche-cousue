@@ -1,6 +1,6 @@
 import { Component } from "react";
 
-type Match = 'correct' | 'incorrect' | 'place';
+type Match = 'correct' | 'incorrect' | 'place' | 'empty' | 'current';
 
 export interface ITry {
     letters: string;
@@ -10,6 +10,7 @@ export interface ITry {
 interface Props {
     length: number;
     try: ITry | null;
+    onClick: (i: number) => void
 }
 
 export default class Try extends Component<Props> {
@@ -31,7 +32,7 @@ export default class Try extends Component<Props> {
         return <div className="Try">
             {
                 letters.map((letter, i) => (
-                    <div key={i} className={`letter ${letter.className}`}>
+                    <div key={i} className={`letter ${letter.className}`} onClick={() => this.props.onClick(i)}>
                         {letter.s}
                     </div>
                 ))
