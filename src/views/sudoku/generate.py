@@ -1,6 +1,6 @@
 from distutils.log import error
 from random import randint, shuffle
-from typing import Iterator, List, Tuple
+from typing import Dict, Iterator, List, Tuple
 
 class Sudoku:
 
@@ -58,8 +58,16 @@ class Sudoku:
         return "".join(map(lambda x: str(x), self.grid))
 
     @staticmethod
-    def solve(sudoku: "Sudoku") -> int:
-        solutions = []
+    def solve(sudoku: "Sudoku", solve_map: Dict[str, int] = None) -> int:
+        solutions = 0
+
+        if solve_map is None:
+            solve_map = dict()
+
+        start_hash = sudoku.hash()
+
+        if start_hash in solve_map:
+            return solve_map[start_hash]
 
         # Find next empty cell
         for i in range(0, 81):
@@ -73,16 +81,23 @@ class Sudoku:
 
                 sudoku[i] = value
 
-                if sudoku.is_full():
-                    solutions.append(sudoku.hash())
-                    return solutions
+                hash = sudoku.hash()
+                
+                if hash in solve_map:
+                    solutions += solve_map[hash]
+                else:
+                    if sudoku.is_full():
+                        solve_map[hash] = 1
+                        return 1
 
-                solutions += Sudoku.solve(sudoku)
+                    solutions += Sudoku.solve(sudoku, solve_map)
+                    solve_map[hash] = solutions
 
                 sudoku[i] = 0
 
             break
 
+        solve_map[start_hash] = solutions
         return solutions
 
     @staticmethod
@@ -120,8 +135,9 @@ class Sudoku:
 
         if not Sudoku.fill(sudoku):
             error("Generate failed")
-        
+
         attempts = 5
+        solve_map = dict()
 
         while attempts > 0:
             i = randint(0, 80)
@@ -133,9 +149,9 @@ class Sudoku:
 
             copy = sudoku.clone()
 
-            solutions = Sudoku.solve(copy)
+            solutions = Sudoku.solve(copy, solve_map=solve_map)
 
-            if len(solutions) > 1:
+            if solutions > 1:
                 sudoku[i] = backup
                 attempts -= 1
         
@@ -148,6 +164,7 @@ if __name__ == "__main__":
 
     print("Generating...")
     for i in range(10):
+        print("generate")
         sudoku = Sudoku.generate()
         hashes.append(sudoku.hash())
 
@@ -156,3 +173,6 @@ if __name__ == "__main__":
         file.write("[" + ",".join(map(lambda x: f'"{x}"', hashes)) + "]")
 
     print("Done")
+    # s = Sudoku(list(map(lambda x: int(x), "000750816705408200600200040000301002401506780000840051027680005863070904000030008")))
+    # print(Sudoku.fill(s))
+    # print("".join(map(lambda x: str(x), s)))

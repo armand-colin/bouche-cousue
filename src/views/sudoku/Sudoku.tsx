@@ -24,11 +24,7 @@ export default class Sudoku extends Component<{}, State> {
     }
 
     private generate() {
-        const grid = Array
-            .from(grids[Math.trunc(Math.random() * grids.length)])
-            .map(x => Number(x))
-
-        // const grid = generateSudoku()
+        const grid = generateSudoku(2)
 
         this.setState({ grid, template: grid })
     }

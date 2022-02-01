@@ -4,7 +4,7 @@ import Try, { ITry } from "./Try";
 import words from './list-words.json'
 
 const wordSet = new Set()
-for (const word in words)
+for (const word of words)
     wordSet.add(word)
 
 interface Props {
