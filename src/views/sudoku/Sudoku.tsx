@@ -4,6 +4,7 @@ import Keyboard from "./Keyboard";
 import './style.scss';
 import grids from "./list-grids.json"
 import ViewHeader from "../ViewHeader";
+import { generateSudoku } from "./generateSudoku";
 
 interface State {
     grid: number[];
@@ -26,6 +27,8 @@ export default class Sudoku extends Component<{}, State> {
         const grid = Array
             .from(grids[Math.trunc(Math.random() * grids.length)])
             .map(x => Number(x))
+
+        // const grid = generateSudoku()
 
         this.setState({ grid, template: grid })
     }
