@@ -78,6 +78,28 @@ class Minesweeper extends Component<{}, State> {
             return
         const revealed = [...this.state.revealed]
         revealed[selY][selX] = 1
+        if (this.state.grid[selY][selX] === 0) {
+            // propagate
+            const encountered = [[selX, selY]]
+            while (encountered.length > 0) {
+                const [x, y] = encountered.pop()!
+                for (let i = -1; i < 2; i++) {
+                    for (let j = -1; j < 2; j++) {
+                        if (i === 0 && j === 0)
+                            continue
+                        const X = x + i
+                        const Y = y + j
+                        if (X >= WIDTH || X < 0 || Y >= HEIGHT || Y < 0)
+                            continue
+                        if (revealed[Y][X] !== 0)
+                            continue
+                        revealed[Y][X] = 1
+                        if (this.state.grid[Y][X] === 0)
+                            encountered.push([X, Y])
+                    }
+                }
+            }
+        }
         this.setState({ revealed, selX: -1, selY: -1 })
     }
 
@@ -106,10 +128,10 @@ class Minesweeper extends Component<{}, State> {
                                 row.map((value, x) => {
                                     const body = this.state.revealed[y][x] === 1 ?
                                         value === -1 ?
-                                            "X" :
+                                            "💣" :
                                             value :
                                         this.state.revealed[y][x] === -1 ?
-                                            "F" :
+                                            "🚩" :
                                             ""
 
                                     const className = this.state.revealed[y][x] === -1 ? 'flag' :
@@ -120,7 +142,9 @@ class Minesweeper extends Component<{}, State> {
                                     const selected = x === this.state.selX && y === this.state.selY
 
                                     return <div className={`cell ${className} ${selected ? 'selected' : ''}`} key={x} onClick={() => this.onClick(x, y)}>
-                                        {body}
+                                        <div className="body">
+                                            {body}
+                                        </div>
                                     </div>
                                 })
                             }
