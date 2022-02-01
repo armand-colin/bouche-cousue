@@ -1,0 +1,97 @@
+.Minesweeper {
+    width: 100%;
+    .grid {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 500px;
+        padding: 30px;
+        .row {
+            display: flex;
+            width: 100%;
+            &:nth-child(n+2) {
+                margin-top: 5px;
+            }
+            .cell {
+                width: 100%;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                &::after {
+                    content: "";
+                    display: block;
+                    padding-bottom: 100%;
+                }
+                border-radius: 5px;
+                box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.4);
+
+                &.flag {
+                    background: lightsalmon;
+                }
+                
+                &.bomb {
+                    background: red;
+                    color: white;
+                }
+
+                border: 2px solid transparent;
+
+                &.selected {
+                    border: 2px solid cornflowerblue;
+                }
+
+                &.value-0 {
+                    color: lightgray;
+                }
+                &.value-1 {
+                    color: blue;
+                }
+                &.value-2 {
+                    color: red;
+                }
+                &.value-3 {
+                    color: green;
+                }
+                &.value-4 {
+                    color: purple;
+                }
+                &.value-5 {
+                    color: orange;
+                }
+                &.value-6 {
+                    color: cornflowerblue;
+                }
+
+                &:nth-child(n+2) {
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+
+    .buttons button, .padding button {
+        height: 3em;
+        border-radius: 5px;
+        color: white;
+        box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: cornflowerblue;
+        width: 100%;
+        border: none;
+    }
+
+    .buttons {
+        display: flex;
+        padding: 10px;
+        & > *:first-child {
+            margin-right: 10px;
+        }
+    }
+
+    .padding {
+        padding: 0 10px 10px 10px;
+    }
+}

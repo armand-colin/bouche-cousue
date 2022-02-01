@@ -7,6 +7,7 @@ const Home = () => {
         <div className="links">
             <LinkButton path="/motus" text="Motus" color="red" />
             <LinkButton path="/sudoku" text="Sudoku" color="blue" />
+            <LinkButton path="/minesweeper" text="Démineur" color="green" />
         </div>
     </div>
 }

@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './views/home/Home';
 import Motus from './views/motus/Motus';
 import Sudoku from './views/sudoku/Sudoku';
+import Minesweeper from './views/minesweeper/Minesweeper';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -14,6 +15,7 @@ ReactDOM.render(
         <Route path="/" element={<Home />} />
         <Route path="/motus" element={<Motus />} />
         <Route path="/sudoku" element={<Sudoku />} />
+        <Route path="/minesweeper" element={<Minesweeper />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
