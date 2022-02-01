@@ -25,12 +25,16 @@
                 }
                 border-radius: 5px;
                 box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.4);
+                
+                .body {
+                    position: absolute;
+                }
 
                 &.flag {
                     background: lightsalmon;
                     font-size: 1.2em;
                     .body {
-                        padding-left: 0.35em;
+                        padding-left: 20%;
                     }
                 }
                 

@@ -9,9 +9,9 @@ interface State {
     selY: number
 }
 
-const WIDTH = 8
-const HEIGHT = 9
-const MINES = 5
+const WIDTH = 10
+const HEIGHT = 13
+const MINES = 10
 
 class Minesweeper extends Component<{}, State> {
 
