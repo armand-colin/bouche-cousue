@@ -177,12 +177,13 @@ export default class Word extends Component<Props, State> {
 
     render() {
         const tries = [...this.state.tries]
-        tries[this.try] = {
-            letters: this.state.current,
-            match: Array(this.state.current.length)
-                .fill('empty')
-                .map((x, i) => i === this.state.pos ? 'current' : x)
-        }
+        if (this.state.win === null)
+            tries[this.try] = {
+                letters: this.state.current,
+                match: Array(this.state.current.length)
+                    .fill('empty')
+                    .map((x, i) => i === this.state.pos ? 'current' : x)
+            }
 
         return <div className="Word">
             <div className="tries">

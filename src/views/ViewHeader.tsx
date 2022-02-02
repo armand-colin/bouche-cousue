@@ -10,7 +10,7 @@ const ViewHeader = (props: Props) => {
     const navigate = useNavigate()
 
     function onClick() {
-        navigate('..')
+        navigate(-1)
     }
 
     return <div className="ViewHeader">

@@ -1,4 +1,5 @@
 import { Component, ReactNode } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 import ViewHeader from "../ViewHeader"
 import './style.scss'
 
@@ -9,13 +10,36 @@ interface State {
     selY: number
 }
 
-const WIDTH = 10
-const HEIGHT = 13
-const MINES = 10
+interface Props {
+    width: number;
+    height: number;
+    bombs: number;
+}
 
-class Minesweeper extends Component<{}, State> {
+const Minesweeper = () => {
+    const { difficulty } = useParams()
+    const navigate = useNavigate()
 
-    constructor(props: {}) {
+    let height: number, width: number, bombs: number;
+
+    if (difficulty) {
+        const split: string[] = difficulty.split('-');
+        [width, height, bombs] = split.map(Number)
+    } else {
+        navigate('/minesweeper')
+        return <></>
+    }
+
+    return <MinesweeperInstance 
+        width={width}
+        height={height}
+        bombs={bombs}
+    />
+}
+
+class MinesweeperInstance extends Component<Props, State> {
+
+    constructor(props: Props) {
         super(props)
         this.state = {
             grid: [],
@@ -28,22 +52,22 @@ class Minesweeper extends Component<{}, State> {
     private generate() {
         const grid = []
         const revealed = []
-        for (let row = 0; row < HEIGHT; row++) {
-            grid.push(Array(WIDTH).fill(0))
-            revealed.push(Array(WIDTH).fill(0))
+        for (let row = 0; row < this.props.height; row++) {
+            grid.push(Array(this.props.width).fill(0))
+            revealed.push(Array(this.props.width).fill(0))
         }
 
         let x, y
-        for (let i = 0; i < MINES; i++) {
+        for (let i = 0; i < this.props.bombs; i++) {
             do {
-                x = Math.trunc(Math.random() * WIDTH)
-                y = Math.trunc(Math.random() * HEIGHT)
+                x = Math.trunc(Math.random() * this.props.width)
+                y = Math.trunc(Math.random() * this.props.height)
             } while (grid[y][x] !== 0)
             grid[y][x] = -1
         }
 
-        for (x = 0; x < WIDTH; x++) {
-            for (y = 0; y < HEIGHT; y++) {
+        for (x = 0; x < this.props.width; x++) {
+            for (y = 0; y < this.props.height; y++) {
                 if (grid[y][x] === -1)
                     continue
                 let count = 0
@@ -53,7 +77,7 @@ class Minesweeper extends Component<{}, State> {
                             continue
                         const X = x + i
                         const Y = y + j
-                        if (X >= WIDTH || X < 0 || Y >= HEIGHT || Y < 0)
+                        if (X >= this.props.width || X < 0 || Y >= this.props.height || Y < 0)
                             continue
                         if (grid[Y][X] === -1)
                             count++
@@ -89,7 +113,7 @@ class Minesweeper extends Component<{}, State> {
                             continue
                         const X = x + i
                         const Y = y + j
-                        if (X >= WIDTH || X < 0 || Y >= HEIGHT || Y < 0)
+                        if (X >= this.props.width || X < 0 || Y >= this.props.height || Y < 0)
                             continue
                         if (revealed[Y][X] !== 0)
                             continue
@@ -115,11 +139,14 @@ class Minesweeper extends Component<{}, State> {
     }
 
     render(): ReactNode {
+        const flags = this.state.revealed.reduce((acc, v) => acc + v.reduce((acc, v) => v === -1 ? acc + 1 : acc, 0), 0)
+
         return <div className="Minesweeper">
             <ViewHeader title="Démineur" />
             <div className="padding">
                 <button onClick={this.generate.bind(this)}>Générer</button>
             </div>
+            <p className="bombs">Bombs: {this.props.bombs - flags}</p>
             <div className="grid">
                 {
                     this.state.grid.map((row, y) => (

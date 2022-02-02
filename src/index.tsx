@@ -7,6 +7,7 @@ import Home from './views/home/Home';
 import Motus from './views/motus/Motus';
 import Sudoku from './views/sudoku/Sudoku';
 import Minesweeper from './views/minesweeper/Minesweeper';
+import MinesweeperLevel from './views/minesweeper/MinesweeperLevel';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,7 +16,8 @@ ReactDOM.render(
         <Route path="/" element={<Home />} />
         <Route path="/motus" element={<Motus />} />
         <Route path="/sudoku" element={<Sudoku />} />
-        <Route path="/minesweeper" element={<Minesweeper />} />
+        <Route path="/minesweeper" element={<MinesweeperLevel />} />
+        <Route path="/minesweeper/:difficulty" element={<Minesweeper />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

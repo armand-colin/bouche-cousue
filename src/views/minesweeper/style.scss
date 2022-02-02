@@ -1,15 +1,19 @@
 .Minesweeper {
     width: 100%;
+    .bombs {
+        margin: 0;
+        text-align: center;
+    }
     .grid {
         display: flex;
         flex-direction: column;
         width: 100%;
         max-width: 500px;
-        padding: 30px;
+        padding: 10px 30px;
         .row {
             display: flex;
             width: 100%;
-            &:nth-child(n+2) {
+            &:nth-child(n + 2) {
                 margin-top: 5px;
             }
             .cell {
@@ -25,7 +29,7 @@
                 }
                 border-radius: 5px;
                 box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.4);
-                
+
                 .body {
                     position: absolute;
                 }
@@ -37,7 +41,7 @@
                         padding-left: 20%;
                     }
                 }
-                
+
                 &.bomb {
                     background: red;
                     color: white;
@@ -75,14 +79,15 @@
                     color: cornflowerblue;
                 }
 
-                &:nth-child(n+2) {
+                &:nth-child(n + 2) {
                     margin-left: 5px;
                 }
             }
         }
     }
 
-    .buttons button, .padding button {
+    .buttons button,
+    .padding button {
         height: 3em;
         border-radius: 5px;
         color: white;
@@ -97,6 +102,10 @@
 
     .buttons {
         display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
         padding: 10px;
         & > *:first-child {
             margin-right: 10px;
@@ -105,5 +114,27 @@
 
     .padding {
         padding: 0 10px 10px 10px;
+    }
+}
+
+.MinesweeperLevel {
+    .grid {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        .DifficultyButton {
+            height: 3em;
+            border-radius: 5px;
+            color: white;
+            box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            border: none;
+            &:nth-child(n+2) {
+                margin-top: 10px;
+            }
+        }
     }
 }
