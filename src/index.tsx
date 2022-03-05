@@ -8,16 +8,24 @@ import Motus from './views/motus/Motus';
 import Sudoku from './views/sudoku/Sudoku';
 import Minesweeper from './views/minesweeper/Minesweeper';
 import MinesweeperLevel from './views/minesweeper/MinesweeperLevel';
+import HanabiLobby from './views/hanabi/HanabiLobby';
+import HanabiGame from './views/hanabi/HanabiGame';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        
         <Route path="/motus" element={<Motus />} />
+        
         <Route path="/sudoku" element={<Sudoku />} />
+
         <Route path="/minesweeper" element={<MinesweeperLevel />} />
         <Route path="/minesweeper/:difficulty" element={<Minesweeper />} />
+
+        <Route path="/hanabi" element={<HanabiLobby />} />
+        <Route path="/hanabi/:playerId/:roomId" element={<HanabiGame />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

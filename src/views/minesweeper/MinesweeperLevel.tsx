@@ -44,6 +44,13 @@ const MinesweeperLevel = (props: {}) => {
                 bombs={18}
                 color="red"
             />
+            <DifficultyButton 
+                text="Vraiment chaud" 
+                width={12}
+                height={15}
+                bombs={27}
+                color="purple"
+            />
         </div>
     </div>
 }

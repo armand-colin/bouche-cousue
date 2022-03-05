@@ -1,0 +1,110 @@
+.HanabiGame {
+    .GameBoard {
+        .OtherHand {
+            padding: 10px;
+            p {
+                margin: 0;
+            }
+            .cards {
+                display: flex;
+                .card {
+                    border-radius: 5px;
+                    box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.4);
+                    border: 2px solid white;
+                    &.W {
+                        border-color: lightgray;
+                    }
+                    &.R {
+                        border-color: salmon;
+                        color: white;
+                        background: red;
+                    }
+                    &.Y {
+                        border-color: darkkhaki;
+                        color: black;
+                        background: yellow;
+                    }
+                    &.B {
+                        border-color: mediumturquoise;
+                        color: white;
+                        background: blue;
+                    }
+                    &.G {
+                        border-color: lightgreen;
+                        color: white;
+                        background: green;
+                    }
+                    width: 3em;
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    &::after {
+                        content: "";
+                        display: block;
+                        padding-bottom: 100%;
+                    }
+                    &:nth-child(n + 2) {
+                        margin-left: 5px;
+                    }
+                }
+            }
+        }
+
+        .OwnHand {
+            padding: 10px;
+            p {
+                margin: 0;
+            }
+            .cards {
+                display: flex;
+                .card {
+                    border-radius: 5px;
+                    box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.4);
+                    border: 2px solid white;
+                    .dot {
+                        width: 2em;
+                        height: 2em;
+                        display: flex;
+                    }
+                    &.W {
+                        border-color: lightgray;
+                    }
+                    &.R {
+                        border-color: salmon;
+                        color: white;
+                        background: red;
+                    }
+                    &.Y {
+                        border-color: darkkhaki;
+                        color: black;
+                        background: yellow;
+                    }
+                    &.B {
+                        border-color: mediumturquoise;
+                        color: white;
+                        background: blue;
+                    }
+                    &.G {
+                        border-color: lightgreen;
+                        color: white;
+                        background: green;
+                    }
+                    width: 3em;
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    &::after {
+                        content: "";
+                        display: block;
+                        padding-bottom: 100%;
+                    }
+                    &:nth-child(n + 2) {
+                        margin-left: 5px;
+                    }
+                }
+            }
+        }
+    }
+}
